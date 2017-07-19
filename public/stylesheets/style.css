@@ -26,10 +26,15 @@
   float: right;
 }
 #poster {
+  text-align: center;
+  width: 600px;
   background-color: grey;
 }
 
 #movie-result {
   text-align: center;
   width: 600px;
+}
+#save-post {
+  text
 }

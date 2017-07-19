@@ -57,7 +57,7 @@ app.get('/search/:searchTerm', (req, res) => {
   var apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MDB_API_KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
 
   request.get(apiUrl, (err, response, body) => {
-    console.log('body=',body)
+    // console.log('body=',body)
     res.json(JSON.parse(body))
   });
 });
@@ -79,23 +79,19 @@ app.get('/movies', (req, res) => {
   });
 });
 
-app.post('/movies', isLoggedIn, (req, res) =>{
-  // var title = req.body.title
-  // var year = req.body.year
-  // var image = req.body.image
-  // var plot = req.body.plot
-  // var newPost = {title:title, year:year, image: image, plot: plot}
-  // Post.create(newPost, function(err, newPosting){
-  //   if(err){
-  //     console.log(err)
-  //   } else {
-  //     res.redirect('/movies')
-  //   }
-  // });
-  res.render('movies/search')
+app.post('/movies', (req, res) =>{
+  console.log('req.body is:',req.body)
+  Post.create(req.body, (err, newPost) => {
+    if(err) {
+      return console.log('err', err)
+    } else {
+      res.render('movies/movies')
+    }
+
+  })
 });
 
-app.get('/movies/new', isLoggedIn, (req, res) => {
+app.get('/movies/new', (req, res) => {
   res.render('movies/new')
 });
 
@@ -144,8 +140,6 @@ app.delete('/movies/:id', (req, res) => {
 });
 
 
-
-
 // ========= Comments
 //route for posting comments
 app.post('/movies/:id/comments', (req, res) => {
@@ -172,33 +166,8 @@ app.post('/movies/:id/comments', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
-=======
-app.post('/movies/:id/comments', (req, res) => {
-   var id = req.params.id
-   Post.findById(req.params.id, (err, post) => {
-     if (err) return err;
 
-     console.log();
-     console.log("++++++++++++++++++++++");
-     // var newComment = {text:text}
-     var newCom = new Comment(req.body)
-     newCom._movieid = post._id
-     console.log(newCom);
-     console.log("++++++++++++++++++++++");
-     newCom.save((err, put) => {
-       if (err) {
-         console.log(err)
-       } else {
-         post.comments.push(newCom)
-         post.save()
-        res.redirect('/movies/'+id)
-      }
-   });
-  });
- });
 // AUTH ROUTES=================
->>>>>>> 453ec22dec488f8da45f586c06d80254279209f2
 // render SIGN UP form
 app.get('/signup', function(req, res){
   res.render('signup');
