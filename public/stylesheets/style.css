@@ -38,8 +38,8 @@
   text-align: center;
   width: 600px;
 }
-#save-post {
-  text
+#submit-form {
+  text-align: center;
 }
 #commentary{
    text-align: center;
@@ -86,4 +86,7 @@
 }
 #search-button{
   font-family: Tahoma, Geneva, sans-serif;
+}
+#save-button{
+  text-align: center;
 }
