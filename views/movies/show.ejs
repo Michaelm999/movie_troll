@@ -2,9 +2,9 @@
 <div style="text-align:center" class="container">
   <h1><%= post.title %></h1>
   <h5><%= post.year %></h5>
-  <img src="<%= post.image %>">
-  <p><%= post.plot %></p>
-    
+  <img id="image" src="<%= post.image %>">
+  <p id="plot"><%= post.plot %></p>
+
   <% include ../comments/new %>
 </div>
 <% include ../partials/footer %>

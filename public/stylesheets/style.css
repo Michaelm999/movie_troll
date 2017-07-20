@@ -15,7 +15,9 @@
   font-family: 'Amatic SC', cursive;
   font-size: 50px;
 }
-
+.thumbnail{
+  background-color: yellow;
+}
 .username {
   height: 26px;
 }
@@ -23,7 +25,8 @@
   height: 26px;
 }
 #caption {
-  float: right;
+  font-size: 16px;
+  text-align: center;
 }
 #poster {
   text-align: center;
@@ -37,4 +40,50 @@
 }
 #save-post {
   text
+}
+#commentary{
+   text-align: center;
+   font-size: 14px;
+ }
+#plot{
+ padding-top: 15px;
+ font-size: 16px;
+}
+#year{
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+#edit{
+  font-size: 20px;
+}
+#delete{
+  font-size: 18px;
+}
+#image{
+  box-shadow: 0px 0px 5px 6px rgba(0,0,0,0.70);
+}
+.btn{
+  margin: 6px;
+}
+.navbar-default{
+  background-color: #FFD700;
+}
+.btn-info{
+  font-size: 16px;
+  font-family: Georgia, serif;
+}
+.btn-success{
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 16px;
+  margin-top: 10px;
+}
+#search-heading{
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: 45px;
+}
+#movie-search{
+  height: 28px;
+}
+#search-button{
+  font-family: Tahoma, Geneva, sans-serif;
 }

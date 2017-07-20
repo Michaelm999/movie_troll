@@ -91,11 +91,11 @@ app.post('/movies', (req, res) =>{
   })
 });
 
-app.get('/movies/new', (req, res) => {
+app.get('/movies/new', isLoggedIn, (req, res) => {
   res.render('movies/new')
 });
 
-app.get('/movies/:id', (req, res) => {
+app.get('/movies/:id', isLoggedIn, (req, res) => {
   Post.findById(req.params.id).populate("comments").exec(function(err, foundPost){
     if(err) {
       console.log(err)
