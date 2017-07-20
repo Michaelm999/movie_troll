@@ -22,6 +22,7 @@ mongoose.connect('mongodb://localhost/movie_troll')
 app.use(morgan('dev'))
 // pull static files from public directory
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride("_method"))
 // use ejs for rendering
 app.set('view engine', 'ejs')
 // parse to deal with nested objects
@@ -107,12 +108,8 @@ app.get('/movies/:id', (req, res) => {
 });
 
 app.get('/movies/:id/edit', (req,res) => {
-  Post.findById(req.params.id, (err, foundPost) => {
-    if(err){
-      console.log(err)
-    } else {
-      res.render('movies/edit', {post: foundPost});
-    }
+  Post.findById(req.params.id, function(err, foundPost){
+    res.render('movies/edit', {post: foundPost})
   });
 });
 
