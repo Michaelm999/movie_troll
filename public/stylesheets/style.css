@@ -29,8 +29,8 @@
   text-align: center;
 }
 #poster {
-  text-align: center;
-  width: 600px;
+  margin: 0 auto;
+  width: 500px;
   background-color: grey;
 }
 

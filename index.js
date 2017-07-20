@@ -8,6 +8,7 @@ const
   methodOverride = require('method-override'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
+  FacebookStrategy = require('passport-facebook')
   passportLocalMongoose = require('passport-local-mongoose'),
   request = require('request'),
   User = require('./models/user'),
@@ -61,6 +62,7 @@ app.get('/search/:searchTerm', (req, res) => {
     res.json(JSON.parse(body))
   });
 });
+
 
 //  ROUTES
   // greeting page
