@@ -7,18 +7,21 @@ Users are allowed to visit and view the movie database and look at comments befo
 Here is the link to our [app](https://movietroll.herokuapp.com/)
 
 --
+
 #Technologies Used
 
 This app was made out of HTML, Node.js, Express, AJAX, Bootstrap, CSS and Google Fonts.
 
 --
+
 #General Approach
 
 Our approach was to start with the user login and build out from there. Our first step was to create the signup/login function. After that, we linked our API to the app, and created a search bar so that users could use it to find movies by their name. From the API, users can pull down the movies name, a poster image, and a synopsis. From there, we added in the comment section, which allows people to post comments to each movie page. Once these were established and working, we added to it the ability to edit & delete comments, as well as a way remove movies from the page and edit the movie's synopsis. After that, we added the ability to login through Facebook, and then we styled it to a beautiful finish.  
 
 For a more detailed view of our work, here is our [Trello](https://trello.com/b/oqc04sL4/project-3) Board.
 
-##Division of Tasks
+#Division of Tasks
+
 Brad: Our brave Project Manager and Fearless Leader, created the routes for the functions used.
 
 Michael: Styled our website to make it extremely visually appealing. He also played a huge factor in creating the comment section.
