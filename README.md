@@ -4,7 +4,8 @@ MovieTroll is the latest application for movie critique and review. Using our AP
 
 Users are allowed to visit and view the movie database and look at comments before logging in. Once an account is created, they are signed in and allowed to upload movie (which consist of the title, image, year, and description) and save it to the home page. Other logged in users are allowed to engage in the comment section and troll the uploaded movie. Once a user is finished with their troll session, they are allowed to log out and carry on with their life.
 
-here is the link to our [app](https://movietroll.herokuapp.com/)
+Here is the link to our [app](https://movietroll.herokuapp.com/)
+
 --
 #Technologies Used
 This app was made out of HTML, Node.js, Express, AJAX, Bootstrap, CSS and Google Fonts.
@@ -33,19 +34,24 @@ The biggest hurdles we had to overcome were importing new technology onto the ap
 # Wireframe
 
 ##Opening Page
+
 ![wireframe](images/MovieTrollHomePage.png)
 
 ##Login Page
+
 ![wireframe](images/MovieTrollLoginPage.png)
 
 ##Sign In Page
+
 ![wireframe](images/MovieTrollSignInPage.png)
 
 ##Movie Comment Page
+
 ![wireframe](images/MovieTrollMoviePage.png)
 --
 
 #ERD
+
 ![erd](images/MovieTrollERD.png)
 
 --
