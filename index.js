@@ -124,9 +124,8 @@ app.put('/movies/:id',isLoggedIn, function(req, res) {
     } else {
       res.redirect('/movies/' + req.params.id)
     }
-  });
-  res.send('edit post')
-});
+  })
+})
 
 app.delete('/movies/:id', (req, res) => {
   Post.findByIdAndRemove(req.params.id, function(err){
