@@ -17,7 +17,9 @@ const
   app = express()
 
 // connect to mongo
-mongoose.connect('mongodb://localhost/movie_troll')
+// mongoose.connect('mongodb://localhost/movie_troll')
+mongoose.connect('mongodb://luna:imadog@ds117093.mlab.com:17093/movie_troll')
+
 // express middleware
 app.use(morgan('dev'))
 // pull static files from public directory
