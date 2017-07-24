@@ -51,7 +51,6 @@ app.use(function (req, res, next) {
   //  console.log(req.user)
    next()
  });
-// console.log(process.env.MDB_API_KEY)
 
 app.get('/search/:searchTerm', (req, res) => {
   var searchTerm = req.params.searchTerm;
@@ -129,7 +128,8 @@ app.put('/movies/:id',isLoggedIn, function(req, res) {
   })
 })
 
-app.delete('/movies/:id', (req, res) => {
+
+app.delete('/movies/:id', isLoggedIn, (req, res) => {
   Post.findByIdAndRemove(req.params.id, function(err){
     if(err){
       console.log(err)
@@ -144,14 +144,12 @@ app.delete('/movies/:id', (req, res) => {
 // ========= Comments
 //route for posting comments
 app.post('/movies/:id/comments', (req, res) => {
-<<<<<<< HEAD
   var id = req.params.id
   Post.findById(req.params.id, (err, post) => {
     if (err) return err;
 
     console.log();
     console.log("++++++++++++++++++++++");
-    // var newComment = {text:text}
     var newCom = new Comment(req.body)
     newCom._movieid = post._id
     console.log(newCom);
@@ -170,7 +168,6 @@ app.post('/movies/:id/comments', (req, res) => {
 
 
 // AUTH ROUTES=================
-=======
    var id = req.params.id
    Post.findById(req.params.id, (err, post) => {
      if (err) return err;
@@ -194,7 +191,7 @@ app.post('/movies/:id/comments', (req, res) => {
   });
  });
 
->>>>>>> style
+// AUTH ROUTES=================
 // render SIGN UP form
 app.get('/signup', function(req, res){
   res.render('signup');
@@ -241,7 +238,6 @@ function isLoggedIn(req,res,next){
   res.redirect('/login')
 }
 
-<<<<<<< HEAD
 function ownsPost(req,res,next){
   if(req.isAuthenticated()){
     Post.findById(req.params.id, function(err, foundPost){
@@ -263,9 +259,6 @@ function ownsPost(req,res,next){
   }
 }
 
-
-=======
->>>>>>> style
 app.listen(PORT, function(err){
   console.log(err || `Server is listening on port ${PORT}`)
 })
