@@ -8,12 +8,14 @@ const
   methodOverride = require('method-override'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
+  FacebookStrategy = require('passport-facebook').Strategy,
+  configAuth = require('./config/auth.js')
   passportLocalMongoose = require('passport-local-mongoose'),
   request = require('request'),
   User = require('./models/user'),
   Post = require('./models/post'),
   Comment = require('./models/comments'),
-  PORT = 8080
+
   app = express()
 
 // connect to mongo
@@ -41,6 +43,14 @@ app.use(require("express-session")({
 //  Auth middleware
 app.use(passport.initialize());
 app.use(passport.session());
+//facebook
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -52,6 +62,7 @@ app.use(function (req, res, next) {
    next()
  });
 // console.log(process.env.MDB_API_KEY)
+
 
 app.get('/search/:searchTerm', (req, res) => {
   var searchTerm = req.params.searchTerm;
@@ -96,12 +107,12 @@ app.post('/movies',isLoggedIn, (req, res) =>{
     }
   })
 });
-
-app.get('/movies/new',isLoggedIn, (req, res) => {
+// redirect to login page if not logged in
+app.get('/movies/new', isLoggedIn, (req, res) => {
   res.render('movies/new')
 });
 
-app.get('/movies/:id', (req, res) => {
+app.get('/movies/:id', isLoggedIn, (req, res) => {
   Post.findById(req.params.id).populate("comments").exec(function(err, foundPost){
     if(err) {
       console.log(err)
@@ -214,6 +225,14 @@ app.post('/signup', function(req, res){
   });
 });
 
+//facebook
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}))
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+	successRedirect: '/',
+	failureRedirect: '/'
+}))
+
 // LOG IN ROUTE
 app.get("/login", function(req, res){
   res.render("login")
@@ -263,11 +282,6 @@ function ownsPost(req,res,next){
 }
 
 
-<<<<<<< HEAD
-app.listen(process.env.PORT || 3000, function(err){
-=======
 
-app.listen(PORT, function(err){
->>>>>>> b499559c2a72c1113f5db668da87bc09f13e41c9
   console.log(err || `Server is listening on port ${PORT}`)
 })
