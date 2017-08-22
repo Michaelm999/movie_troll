@@ -129,7 +129,7 @@ app.get('/movies/:id/edit',isLoggedIn, (req,res) => {
   });
 });
 
-app.put('/movies/:id',isLoggedIn, function(req, res) {
+app.put('/movies/:id',isLoggedIn, (req, res) => {
   Post.findByIdAndUpdate(req.params.id, req.body.post, function(err, updatedPost){
     if(err){
       console.log(err)
@@ -138,6 +138,7 @@ app.put('/movies/:id',isLoggedIn, function(req, res) {
       res.redirect('/movies/' + req.params.id)
     }
   });
+});
 
 
 app.delete('/movies/:id', (req, res) => {
@@ -282,6 +283,6 @@ function ownsPost(req,res,next){
 }
 
 
-
+app.listen(process.env.PORT || 3000, {
   console.log(err || `Server is listening on port ${PORT}`)
-})
+});
