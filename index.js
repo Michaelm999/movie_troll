@@ -18,11 +18,14 @@ const
   app = express()
 
 // connect to mongo
-mongoose.connect('mongodb://localhost/movie_troll')
+// mongoose.connect('mongodb://localhost/movie_troll')
+mongoose.connect('mongodb://luna:imadog@ds117093.mlab.com:17093/movie_troll')
+
 // express middleware
 app.use(morgan('dev'))
 // pull static files from public directory
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride("_method"))
 // use ejs for rendering
 app.set('view engine', 'ejs')
 // parse to deal with nested objects
@@ -81,19 +84,22 @@ app.get('/movies', (req, res) => {
   });
 });
 
-app.post('/movies', (req, res) =>{
-  console.log('req.body is:',req.body)
-  Post.create(req.body, (err, newPost) => {
+app.post('/movies',isLoggedIn, (req, res) =>{
+  console.log("User:", req.user)
+  // console.log('req.body is:',req.body)
+  newPost = new Post(req.body);
+  newPost.create = req.user;
+  console.log('newPost:', newPost);
+  newPost.save((err,post) => {
     if(err) {
-      return console.log('err', err)
+       console.log('err', err)
     } else {
-      res.render('movies/movies')
+      res.redirect('/movies')
     }
-
   })
 });
 
-app.get('/movies/new', isLoggedIn, (req, res) => {
+
   res.render('movies/new')
 });
 
@@ -108,17 +114,13 @@ app.get('/movies/:id', isLoggedIn, (req, res) => {
   });
 });
 
-app.get('/movies/:id/edit', (req,res) => {
-  Post.findById(req.params.id, (err, foundPost) => {
-    if(err){
-      console.log(err)
-    } else {
-      res.render('movies/edit', {post: foundPost});
-    }
+app.get('/movies/:id/edit',isLoggedIn, (req,res) => {
+  Post.findById(req.params.id, function(err, foundPost){
+    res.render('movies/edit', {post: foundPost})
   });
 });
 
-app.put('/movies/:id', function(req, res) {
+app.put('/movies/:id',isLoggedIn, function(req, res) {
   Post.findByIdAndUpdate(req.params.id, req.body.post, function(err, updatedPost){
     if(err){
       console.log(err)
@@ -127,8 +129,8 @@ app.put('/movies/:id', function(req, res) {
       res.redirect('/movies/' + req.params.id)
     }
   });
-  res.send('edit post')
-});
+
+
 
 app.delete('/movies/:id', (req, res) => {
   Post.findByIdAndRemove(req.params.id, function(err){
@@ -145,6 +147,31 @@ app.delete('/movies/:id', (req, res) => {
 // ========= Comments
 //route for posting comments
 app.post('/movies/:id/comments', (req, res) => {
+
+   var id = req.params.id
+   Post.findById(req.params.id, (err, post) => {
+     if (err) return err;
+
+     console.log(post);
+     console.log("++++++++++++++++++++++");
+     // var newComment = {text:text}
+     var newCom = new Comment(req.body)
+     newCom._movieid = post._id
+     console.log(newCom);
+     console.log("++++++++++++++++++++++");
+     newCom.save((err, put) => {
+       if (err) {
+         console.log(err)
+       } else {
+         post.comments.push(newCom)
+         post.save()
+        res.redirect('/movies/'+id)
+      }
+   });
+  });
+ });
+
+
   var id = req.params.id
   Post.findById(req.params.id, (err, post) => {
     if (err) return err;
@@ -170,6 +197,7 @@ app.post('/movies/:id/comments', (req, res) => {
 
 
 // AUTH ROUTES=================
+
 // render SIGN UP form
 app.get('/signup', function(req, res){
   res.render('signup');
@@ -215,6 +243,29 @@ function isLoggedIn(req,res,next){
   }
   res.redirect('/login')
 }
+
+
+function ownsPost(req,res,next){
+  if(req.isAuthenticated()){
+    Post.findById(req.params.id, function(err, foundPost){
+      if(err){
+        res.redirect('back')
+      } else {
+        console.log(foundPost)
+        if(foundPost.creator.id.equals(req.user._id)){
+          console.log(req.user)
+          conole.log('post creator:', foundPost.creator._id)
+          next()
+        } else {
+          res.redirect('back')
+        }
+      }
+    });
+  } else {
+    res.redirect('back')
+  }
+}
+
 
 
 app.listen(PORT, function(err){
