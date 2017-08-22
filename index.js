@@ -8,8 +8,7 @@ const
   methodOverride = require('method-override'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
-  FacebookStrategy = require('passport-facebook').Strategy,
-  configAuth = require('./config/auth.js')
+
   passportLocalMongoose = require('passport-local-mongoose'),
   request = require('request'),
   User = require('./models/user'),
@@ -76,6 +75,7 @@ app.get('/search/:searchTerm', (req, res) => {
   });
 });
 
+
 //  ROUTES
   // greeting page
 app.get('/',function(req,res){
@@ -107,8 +107,7 @@ app.post('/movies',isLoggedIn, (req, res) =>{
     }
   })
 });
-// redirect to login page if not logged in
-app.get('/movies/new', isLoggedIn, (req, res) => {
+
   res.render('movies/new')
 });
 
@@ -139,6 +138,7 @@ app.put('/movies/:id',isLoggedIn, (req, res) => {
     }
   });
 });
+
 
 
 app.delete('/movies/:id', (req, res) => {
@@ -200,9 +200,10 @@ app.post('/movies/:id/comments', (req, res) => {
         post.save()
         res.redirect('/movies/'+id)
       }
-    });
-  });
-});
+    })
+  })
+})
+
 
 // AUTH ROUTES=================
 
