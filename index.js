@@ -8,18 +8,18 @@ const
   methodOverride = require('method-override'),
   passport = require('passport'),
   LocalStrategy = require('passport-local'),
-  FacebookStrategy = require('passport-facebook')
+
   passportLocalMongoose = require('passport-local-mongoose'),
   request = require('request'),
   User = require('./models/user'),
   Post = require('./models/post'),
   Comment = require('./models/comments'),
-  PORT = 3000,
+
   app = express()
 
 // connect to mongo
 // mongoose.connect('mongodb://localhost/movie_troll')
-mongoose.connect('mongodb://luna:imadog@ds117093.mlab.com:17093/movie_troll')
+mongoose.connect(process.env.DATABASEURL)
 
 // express middleware
 app.use(morgan('dev'))
@@ -42,6 +42,14 @@ app.use(require("express-session")({
 //  Auth middleware
 app.use(passport.initialize());
 app.use(passport.session());
+//facebook
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -53,6 +61,7 @@ app.use(function (req, res, next) {
    next()
  });
 // console.log(process.env.MDB_API_KEY)
+
 
 app.get('/search/:searchTerm', (req, res) => {
   var searchTerm = req.params.searchTerm;
@@ -98,7 +107,6 @@ app.post('/movies',isLoggedIn, (req, res) =>{
     }
   })
 });
-
 
   res.render('movies/new')
 });
@@ -218,6 +226,14 @@ app.post('/signup', function(req, res){
   });
 });
 
+//facebook
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}))
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+	successRedirect: '/',
+	failureRedirect: '/'
+}))
+
 // LOG IN ROUTE
 app.get("/login", function(req, res){
   res.render("login")
@@ -268,6 +284,5 @@ function ownsPost(req,res,next){
 
 
 
-app.listen(PORT, function(err){
   console.log(err || `Server is listening on port ${PORT}`)
 })

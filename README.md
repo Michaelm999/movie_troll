@@ -1,20 +1,4 @@
-#MovieTroll
-
-MovieTroll is the latest application for movie critique and review. Using our API, we have a vast database of movies for people to commentate on.
-
---
-#Technologies Used
 
 
---
-#General Approach
+Movie Troll is a movie discussion site where, pretending the internet was void of negative comments, people could come to talk trash about anything movie related.  Using The Movie Database API, a user will search for the movie they want to discuss and post the movie poster and plot for all to see.  Below in the comments for each posting all users can talk about anything they want regarding that movie.
 
-Here is our [Trello](https://trello.com/b/oqc04sL4/project-3)
-
-##Division of Tasks
-
---
-#Unsolved Problems & Major Problems
-
---
-#Installation Instructions
