@@ -1,8 +1,5 @@
-# MovieTroll
-
-MovieTroll is the latest application for movie critique and review. Using our API, we have a vast database of movies for people to commentate on.
-
-Users are allowed to visit and view the movie database and look at comments before logging in. Once an account is created, they are signed in and allowed to upload movie (which consist of the title, image, year, and description) and save it to the home page. Other logged in users are allowed to engage in the comment section and troll the uploaded movie. Once a user is finished with their troll session, they are allowed to log out and carry on with their life.
+# Movie Troll
+Movie Troll is a movie discussion site where, pretending the internet was void of negative comments, people could come to talk trash about anything movie related.  Using The Movie Database API, a user will search for the movie they want to discuss and post the movie poster and plot for all to see.  Below in the comments for each posting all users can talk about anything they want regarding that movie.
 
 Here is the link to our [app](https://movietroll.herokuapp.com/)
 
@@ -78,3 +75,10 @@ mongod (on another window of the terminal)
 nodemon
 
 And then visit localhost 3000
+
+# Technologies Used
+ This app was built using Node, Express, and MongoDB.  We also used The Movie Database API for the movie information.  For user verification we used Passport, particularly Passport local strategy.  
+ Mockups were done in Balsamic and we versioned with Git and GitHub.
+
+# App Screenshot
+![ScreenShot](/images/movie_troll.png)

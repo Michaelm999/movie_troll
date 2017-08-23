@@ -6,13 +6,18 @@
   <img id="image" src="<%= post.image %>">
   <p id="plot"><%= post.plot %></p>
 
-  <div class="buttons">
-    <a href="/movies/<%= post._id %>/edit"><button class="btn btn-warning"> Edit Post</button></a>
-    <form action="/movies/<%= post._id %>?_method=DELETE" method="POST">
-      <button style="display:inline;" class="btn btn-danger"> Delete Post</button>
-    </form>
-    <a href="/movies"><button class="btn btn-primary"> Go Back</button></a>
-  </div>
+  <div class="button">
+    <a href="/movies/<%= post._id %>/edit">
+      <button id="edit" class="btn btn-primary">Edit Post</button>
+    </a>
+
+    <form class="delete-movie-form" action="/movies/<%= post._id %>?_method=DELETE" method="POST">
+    <button id="delete" class="btn btn-danger">Delete Post</button>
+  </form>
+  <a href="/movies"><button class="btn btn-primary"> Go Back</button></a>
+</div>
+
+  <h5><%= post.year %></h5>
 
   <% include ../comments/new %>
 </div>
