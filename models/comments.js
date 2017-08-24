@@ -7,7 +7,8 @@ const CommentSchema = new mongoose.Schema({
   _movieid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post'
-  }
+  },
+  commenter: {type: mongoose.Schema.Types.Object, ref: "User"}
 })
 
 CommentSchema.pre('findOne', function() {

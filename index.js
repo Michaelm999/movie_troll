@@ -96,7 +96,7 @@ app.get('/movies', (req, res) => {
 app.post('/movies', isLoggedIn, (req, res) =>{
   console.log("User:", req.user)
   newPost = new Post(req.body);
-  newPost.create = req.user;
+  newPost.creator = req.user;
   console.log('newPost:', newPost);
   newPost.save((err,post) => {
     if(err) {
@@ -158,10 +158,11 @@ app.post('/movies/:id/comments', (req, res) => {
    Post.findById(req.params.id, (err, post) => {
      if (err) return err;
      console.log(post);
-     console.log("++++++++++++++++++++++");
+     console.log("User:", req.user)
      // var newComment = {text:text}
      var newCom = new Comment(req.body)
      newCom._movieid = post._id
+     newCom.commenter = req.user
      console.log(newCom);
      console.log("++++++++++++++++++++++");
      newCom.save((err, put) => {

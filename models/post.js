@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    title: String,
-    year: Number,
     image: String,
     plot: String,
-    creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    creator: {type: mongoose.Schema.Types.Object, ref: "User"},
     comments: [
         {
           type: mongoose.Schema.Types.ObjectId,

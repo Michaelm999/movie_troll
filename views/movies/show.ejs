@@ -1,11 +1,9 @@
 <% include ../partials/header %>
 <div style="text-align:center" class="container">
-  <%= post.creator %>
   <h1><%= post.title %></h1>
   <h5 id="year"><%= post.year %></h5>
   <img id="image" src="<%= post.image %>">
   <p id="plot"><%= post.plot %></p>
-
   <div class="button">
     <a href="/movies/<%= post._id %>/edit">
       <button id="edit" class="btn btn-primary">Edit Post</button>
