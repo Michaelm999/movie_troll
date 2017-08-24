@@ -14,12 +14,12 @@ const
   User = require('./models/user'),
   Post = require('./models/post'),
   Comment = require('./models/comments'),
-
+  PORT=3000,
   app = express()
 
 // connect to mongo
 // mongoose.connect('mongodb://localhost/movie_troll')
-mongoose.connect(process.env.DATABASEURL)
+mongoose.connect('mongodb://luna:imadog@ds117093.mlab.com:17093/movie_troll')
 
 // express middleware
 app.use(morgan('dev'))
@@ -93,9 +93,8 @@ app.get('/movies', (req, res) => {
   });
 });
 
-app.post('/movies',isLoggedIn, (req, res) =>{
+app.post('/movies', isLoggedIn, (req, res) =>{
   console.log("User:", req.user)
-  // console.log('req.body is:',req.body)
   newPost = new Post(req.body);
   newPost.create = req.user;
   console.log('newPost:', newPost);
@@ -106,8 +105,9 @@ app.post('/movies',isLoggedIn, (req, res) =>{
       res.redirect('/movies')
     }
   })
-});
+})
 
+app.get('/movies/new',isLoggedIn, (req, res) => {
   res.render('movies/new')
 });
 
@@ -139,8 +139,6 @@ app.put('/movies/:id',isLoggedIn, (req, res) => {
   });
 });
 
-
-
 app.delete('/movies/:id', (req, res) => {
   Post.findByIdAndRemove(req.params.id, function(err){
     if(err){
@@ -156,11 +154,9 @@ app.delete('/movies/:id', (req, res) => {
 // ========= Comments
 //route for posting comments
 app.post('/movies/:id/comments', (req, res) => {
-
    var id = req.params.id
    Post.findById(req.params.id, (err, post) => {
      if (err) return err;
-
      console.log(post);
      console.log("++++++++++++++++++++++");
      // var newComment = {text:text}
@@ -179,31 +175,6 @@ app.post('/movies/:id/comments', (req, res) => {
    });
   });
  });
-
-
-  var id = req.params.id
-  Post.findById(req.params.id, (err, post) => {
-    if (err) return err;
-
-    console.log();
-    console.log("++++++++++++++++++++++");
-    // var newComment = {text:text}
-    var newCom = new Comment(req.body)
-    newCom._movieid = post._id
-    console.log(newCom);
-    console.log("++++++++++++++++++++++");
-    newCom.save((err, put) => {
-      if (err) {
-        console.log(err)
-      } else {
-        post.comments.push(newCom)
-        post.save()
-        res.redirect('/movies/'+id)
-      }
-    })
-  })
-})
-
 
 // AUTH ROUTES=================
 
@@ -247,7 +218,7 @@ app.post('/login', passport.authenticate("local", {
 }), function(req, res){
 });
 
-// DESTROY SEssion/ logout
+// DESTROY Session/ logout
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/')
@@ -277,12 +248,12 @@ function ownsPost(req,res,next){
           res.redirect('back')
         }
       }
-    });
+    })
   } else {
     res.redirect('back')
   }
 }
 
-app.listen(process.env.PORT || 3000, {
+app.listen(PORT, function(err){
   console.log(err || `Server is listening on port ${PORT}`)
-});
+})

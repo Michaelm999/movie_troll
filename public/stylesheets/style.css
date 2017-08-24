@@ -1,7 +1,16 @@
 #home-banner{
   text-align: center;
 }
-
+#image{
+webkit-box-shadow: 0px 0px 5px 6px rgba(0,0,0,0.70);
+moz-box-shadow: 0px 0px 5px 6px rgba(0,0,0,0.70);
+box-shadow: 0px 0px 5px 6px rgba(0,0,0,0.70);
+}
+#plot{
+  padding-top: 15px;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
 #greeting {
   text-align: center;
   color: rgb(255,120,120);
@@ -20,6 +29,7 @@
 #caption {
   font-size: 16px;
   text-align: center;
+  margin-top: 8px;
 }
 
 #poster {
@@ -41,9 +51,14 @@
 #edit{
   font-size: 20px;
 }
+#commentary{
+  text-align: center;
+  font-size: 17px;
+}
 #delete{
   font-size: 18px;
-
+  margin: 6px;
+}
 .navbar-default{
   background-color: #FFD700;
 }
@@ -60,9 +75,15 @@
   font-family: Impact, Charcoal, sans-serif;
   font-size: 45px;
 }
+#searching{
+  text-align: center;
+}
 #movie-search{
   height: 28px;
 }
 #search-button{
   font-family: Tahoma, Geneva, sans-serif;
+}
+#submit-form{
+  text-align: center;
 }
